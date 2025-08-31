@@ -17,7 +17,13 @@ if (supabaseUrl && supabaseKey) {
       insert: () => Promise.resolve({ data: null, error: new Error('Supabase not configured') }),
       update: () => Promise.resolve({ data: null, error: new Error('Supabase not configured') }),
       delete: () => Promise.resolve({ data: null, error: new Error('Supabase not configured') })
-    })
+    }),
+    auth: {
+      getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+      onAuthStateChange: () => ({ data: { subscription: null } }),
+      signInWithPassword: () => Promise.resolve({ data: null, error: new Error('Supabase not configured') }),
+      signOut: () => Promise.resolve({ error: null })
+    }
   }
 }
 
