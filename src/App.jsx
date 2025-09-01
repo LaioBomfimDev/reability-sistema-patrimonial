@@ -17,7 +17,8 @@ function App() {
     const initAuth = async () => {
       try {
         await AuthManager.initialize();
-        setIsAuthenticated(AuthManager.isAuthenticated());
+        const authStatus = AuthManager.isAuthenticated();
+        setIsAuthenticated(authStatus);
       } catch (error) {
         console.error('Auth initialization failed:', error);
       } finally {
@@ -55,7 +56,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Router>
-        <div className="App">
+        <div className="min-h-screen bg-gray-50">
           {!isAuthenticated ? (
             <LoginForm onSuccess={handleLoginSuccess} />
           ) : (
