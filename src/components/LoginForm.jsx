@@ -11,12 +11,15 @@ const LoginForm = ({ onSuccess }) => {
 
   const validationRules = {
     email: [
-      { rule: 'required', message: 'E-mail é obrigatório' },
-      { rule: 'email', message: 'E-mail inválido' }
+      (value) => !value || value.trim() === '' ? 'E-mail é obrigatório' : null,
+      (value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return value && !emailRegex.test(value) ? 'E-mail inválido' : null;
+      }
     ],
     password: [
-      { rule: 'required', message: 'Senha é obrigatória' },
-      { rule: 'minLength', value: 6, message: 'Senha deve ter pelo menos 6 caracteres' }
+      (value) => !value || value.trim() === '' ? 'Senha é obrigatória' : null,
+      (value) => value && value.length < 6 ? 'Senha deve ter pelo menos 6 caracteres' : null
     ]
   };
 
