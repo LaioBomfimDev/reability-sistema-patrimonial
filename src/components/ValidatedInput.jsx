@@ -8,10 +8,12 @@ export const ValidatedInput = ({
   placeholder, 
   required = false,
   className = '',
-  ...fieldProps 
+  value,
+  onChange,
+  onBlur,
+  error,
+  ...otherProps 
 }) => {
-  const { error, ...inputProps } = fieldProps;
-  
   return (
     <div className="mb-4">
       <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">
@@ -19,10 +21,14 @@ export const ValidatedInput = ({
       </label>
       <input
         id={name}
+        name={name}
         type={type}
+        value={value || ''}
+        onChange={onChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         className={`input-field ${error ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : ''} ${className}`}
-        {...inputProps}
+        {...otherProps}
       />
       {error && (
         <p className="mt-1 text-sm text-red-600" role="alert">
